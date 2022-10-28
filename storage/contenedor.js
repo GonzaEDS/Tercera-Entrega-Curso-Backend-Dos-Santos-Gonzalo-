@@ -13,29 +13,52 @@ class Container {
       console.error(error)
     }
   }
-  async save(obj) {
-    try {
-      const data = await fs.promises.readFile(this.fileName, 'utf-8'),
-        jsonData = JSON.parse(data)
-      this.count = [...jsonData].pop().id
 
-      if (jsonData.length > 0) {
-        // const lastId = jsonData[jsonData.length - 1].id
-        obj.id = this.count + 1
-      } else {
-        obj.id = 1
-      }
-    } catch (err) {
+  async save(product) {
+    let array = []
+    try {
+      array = await fs.promises.readFile(this.fileName, 'utf-8')
+      array = JSON.parse(array)
+      this.count = [...array].pop().id
+    } catch (error) {
       try {
         await this.createOrReset('container created')
       } catch (err) {
-        throw new Error(err)
+        console.error(error)
       }
     }
-    jsonData.push(obj)
-    fs.writeFileSync(this.fileName, JSON.stringify(jsonData, null, 3))
-    return this.count + 1
+    array.push({
+      ...product,
+      id: this.count + 1
+    })
+    array = JSON.stringify(array, null, 3)
+    await fs.promises.writeFile(this.fileName, array)
+    return product
   }
+
+  // async save(obj) {
+  //   try {
+  //     const data = await fs.promises.readFile(this.fileName, 'utf-8'),
+  //       jsonData = JSON.parse(data)
+  //     this.count = [...jsonData].pop().id
+
+  //     if (jsonData.length > 0) {
+  //       // const lastId = jsonData[jsonData.length - 1].id
+  //       obj.id = this.count + 1
+  //     } else {
+  //       obj.id = 1
+  //     }
+  //     jsonData.push(obj)
+  //     fs.writeFileSync(this.fileName, JSON.stringify(jsonData, null, 3))
+  //     return obj
+  //   } catch (err) {
+  //     try {
+  //       await this.createOrReset('container created')
+  //     } catch (err) {
+  //       throw new Error(err)
+  //     }
+  //   }
+  // }
 
   async getById(num) {
     try {

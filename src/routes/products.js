@@ -4,16 +4,12 @@ const products = require('../../storage/products')
 
 router.post('/', async (req, res) => {
   try {
+    const { body } = req
+    console.log(body)
     let data = await products.save(req.body)
-    if (data) {
-      res.status(200).json({
-        response: data
-      })
-    } else {
-      res.status(404).json({
-        response: 'can not find'
-      })
-    }
+    res.status(200).json({
+      response: data
+    })
   } catch (error) {
     console.log(error)
     res.status(400).json({
