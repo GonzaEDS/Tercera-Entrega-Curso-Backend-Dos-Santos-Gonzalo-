@@ -34,5 +34,11 @@
       "price": 900.5,
       "thumbnail": "https://cdn4.iconfinder.com/data/icons/education-759/2050/Education_flat-05-1024.png",
       "id": 6
+   },
+   {
+      "name": "Dragón",
+      "price": "5000",
+      "thumbnail": "https://cdn4.iconfinder.com/data/icons/medieval-23/340/medieval_dragon_fantasy_monster_mythology_flying_creature-512.png",
+      "id": 7
    }
 ]
