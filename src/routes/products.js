@@ -39,12 +39,11 @@ router.get('/', async (_req, res) => {
 
 router.get('/random', async (_req, res) => {
   try {
-    let data = await products.getOne()
-    console.log(data)
+    let data = []
+    data.push(await products.getOne())
+
     if (data) {
-      res.status(200).json({
-        response: data
-      })
+      res.status(200).send(pageWithTable(data))
     } else {
       res.status(404).json({
         response: 'can not find'

@@ -36,30 +36,6 @@ class Container {
     return product
   }
 
-  // async save(obj) {
-  //   try {
-  //     const data = await fs.promises.readFile(this.fileName, 'utf-8'),
-  //       jsonData = JSON.parse(data)
-  //     this.count = [...jsonData].pop().id
-
-  //     if (jsonData.length > 0) {
-  //       // const lastId = jsonData[jsonData.length - 1].id
-  //       obj.id = this.count + 1
-  //     } else {
-  //       obj.id = 1
-  //     }
-  //     jsonData.push(obj)
-  //     fs.writeFileSync(this.fileName, JSON.stringify(jsonData, null, 3))
-  //     return obj
-  //   } catch (err) {
-  //     try {
-  //       await this.createOrReset('container created')
-  //     } catch (err) {
-  //       throw new Error(err)
-  //     }
-  //   }
-  // }
-
   async getById(num) {
     try {
       const data = await fs.promises.readFile(this.fileName, 'utf-8'),
@@ -94,7 +70,7 @@ class Container {
       const data = await fs.promises.readFile(this.fileName, 'utf-8')
       const jsonData = await JSON.parse(data)
       if (jsonData.length > 0) {
-        const random = parseInt(Math.random() * (jsonData.length - 1))
+        const random = parseInt(Math.random() * jsonData.length)
         return jsonData[random]
       } else {
         return null
